@@ -105,21 +105,6 @@ Suivi de la timeline et saisie des observations
 ![Suivi de la timeline et saisie des observations](assets/capt2.png)
 
 
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues !
-
-*    Forkez le projet
-
-*    Créez votre branche de fonctionnalité (git checkout -b feature/NouvelleFonctionnalite)
-
-*    Commitez vos changements (git commit -m 'Ajout d'une nouvelle fonctionnalité')
-
-*    Pushez vers la branche (git push origin feature/NouvelleFonctionnalite)  
-
-*    Ouvrez une Pull Request  
-
 ## 📝 Licence MIT
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
