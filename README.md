@@ -27,28 +27,30 @@ Une application de bureau Windows légère et autonome, développée en Python, 
 
 1. Assurez-vous d'avoir [Python 3.8+](https://www.python.org/downloads/) installé sur votre machine.
 2. Clonez ce dépôt sur votre machine locale :
-   ```bash
+
+```bash
    git clone [https://github.com/votre-nom-utilisateur/votre-repo.git](https://github.com/votre-nom-utilisateur/votre-repo.git)
    cd votre-repo
 ```
-(Optionnel mais recommandé) Créez et activez un environnement virtuel (Workspace) :
-   ```bash
+
+3. (Optionnel mais recommandé) Créez et activez un environnement virtuel (Workspace) :
+
+```bash
 
 python -m venv venv
 venv\Scripts\activate
 ```
 
-Installez les dépendances requises :
-   ```bash
+4. Installez les dépendances requises :
+
+```bash
 
     pip install pyyaml
 ```
 
 ## 🚀 Utilisation
 
-1.    Préparez votre fichier de configuration Créez un fichier .yml (par exemple taches.yml) contenant vos étapes. Voici le format attendu :
-
-    YAML
+1.    Préparez votre fichier de configuration Créez un fichier .yml (par exemple taches.yml) contenant vos étapes. Voici le format attendu : YAML
 
 ```yaml
 taches:
@@ -69,15 +71,16 @@ taches:
 
     python app.py
 ```
+
 3. Exécutez vos tâches
 
-    *    Cliquez sur "Ouvrir un fichier..." et sélectionnez votre .yml.
+*    Cliquez sur "Ouvrir un fichier..." et sélectionnez votre .yml.
 
-    *    L'interface d'exécution s'ouvre.
+*    L'interface d'exécution s'ouvre.
 
-    *    À chaque étape, indiquez un succès ou une erreur, ajoutez des commentaires, des logs techniques ou des captures d'écran.
+*    À chaque étape, indiquez un succès ou une erreur, ajoutez des commentaires, des logs techniques ou des captures d'écran.
 
-    *    Cliquez sur "Valider l'étape et Enregistrer".
+*    Cliquez sur "Valider l'étape et Enregistrer".
 
 ## 📁 Structure des Rapports Générés
 
