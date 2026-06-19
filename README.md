@@ -97,9 +97,14 @@ Dès le lancement de l'exécution, l'application crée automatiquement l'arbores
 ## 📸 Aperçu de l'application
 
 
-Sélection du fichier de configuration. --TODO
+Sélection du fichier de configuration.
 
-Suivi de la timeline et saisie des observations -- TODO
+![Sélection du fichier de configuration](assets/capt1.png)
+
+Suivi de la timeline et saisie des observations
+![Suivi de la timeline et saisie des observations](assets/capt2.png)
+
+
 
 ## 🤝 Contribution
 
