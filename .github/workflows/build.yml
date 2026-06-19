@@ -1,0 +1,83 @@
+name: Création de Release
+
+# 1. LE DÉCLENCHEUR : Uniquement via le bouton manuel
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Numéro de version (ex: v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+# Il faut donner l'autorisation au robot d'écrire sur la page des Releases
+permissions:
+  contents: write
+
+jobs:
+  # --- ÉTAPE 1 : COMPILATION SUR LES 3 SYSTÈMES ---
+  build:
+    name: Build sur ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+    - name: Récupération du code
+      uses: actions/checkout@v4
+
+    - name: Installation de Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Installation des dépendances
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml pyinstaller
+
+    - name: Compilation avec PyInstaller
+      run: |
+        pyinstaller --onefile --windowed --name Orchestrateur app.py
+
+    - name: Renommer selon le système d'exploitation
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          mv dist/Orchestrateur.exe dist/Orchestrateur-Windows.exe
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          mv dist/Orchestrateur dist/Orchestrateur-Mac
+        else
+          mv dist/Orchestrateur dist/Orchestrateur-Linux
+        fi
+
+    - name: Sauvegarde temporaire avant la Release
+      uses: actions/upload-artifact@v4
+      with:
+        name: exec-${{ matrix.os }}
+        path: dist/Orchestrateur*
+
+  # --- ÉTAPE 2 : CRÉATION DE LA RELEASE PUBLIQUE ---
+  release:
+    needs: build # Ne se lance que quand les 3 compilations sont finies
+    runs-on: ubuntu-latest
+    steps:
+    - name: Récupération du code (requis pour créer la release)
+      uses: actions/checkout@v4
+
+    - name: Récupérer tous les fichiers compilés
+      uses: actions/download-artifact@v4
+      with:
+        pattern: exec-*
+        path: final_builds
+        merge-multiple: true
+
+    - name: Création de la Release GitHub
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # On Créer la page de Release et y attache les 3 fichiers
+        gh release create ${{ github.event.inputs.version }} \
+          --title "Version ${{ github.event.inputs.version }}" \
+          --notes "Nouvelle version générée automatiquement depuis l'interface." \
+          final_builds/Orchestrateur-Windows.exe final_builds/Orchestrateur-Mac final_builds/Orchestrateur-Linux
